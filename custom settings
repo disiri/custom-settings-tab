@@ -1,0 +1,67 @@
+<?php
+/*
+Plugin Name: Reports
+Plugin URI: http://jsrwebsolutions.com
+Description: Plugin for adding custom settings
+Author: Desiree Anne Q. Banua
+Version: 1.0
+Author URI: http://google.com
+*/
+
+add_submenu_page('edit.php?post_type=custom_post_type', 'Settings', 'Settings', 'manage_options', 'class_ant_settings', 'class_ant_settings' );
+
+/* Display Page
+-----------------------------------------------------------------*/
+function class_ant_settings() {
+?>
+<div class="wrap">  
+        <div id="icon-themes" class="icon32"></div>  
+        <h2>Settings</h2>  
+        
+        <?php settings_errors(); ?>  
+
+        <?php  
+                $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'email_settings';  
+               
+        ?>  
+
+        <h2 class="nav-tab-wrapper">  
+            <a href="?post_type=class_ant&page=class_ant_settings&tab=email_settings" class="nav-tab <?php echo $active_tab == 'email_settings' ? 'nav-tab-active' : ''; ?>">Email Content Settings</a>  
+            <a href="?post_type=class_ant&page=class_ant_settings&tab=paypal_settings" class="nav-tab <?php echo $active_tab == 'paypal_settings' ? 'nav-tab-active' : ''; ?>">Paypal API</a>  
+            <a href="?post_type=class_ant&page=class_ant_settings&tab=fb_settings" class="nav-tab <?php echo $active_tab == 'fb_settings' ? 'nav-tab-active' : ''; ?>">Facebook Login</a>  
+            <a href="?post_type=class_ant&page=class_ant_settings&tab=google_settings" class="nav-tab <?php echo $active_tab == 'google_settings' ? 'nav-tab-active' : ''; ?>">Google Login</a>  
+         </h2>  
+
+
+        <form method="post" action="options.php">  
+
+            <?php 
+              if( $active_tab == 'fb_settings' ) {  
+
+                  settings_fields( 'class_ant_fb_settings' );
+                  do_settings_sections( 'class_ant_fb_settings' ); 
+              
+              } else if( $active_tab == 'google_settings' ) {
+                  
+                  settings_fields( 'class_ant_google_settings' );
+                  do_settings_sections( 'class_ant_google_settings' ); 
+
+              } else if( $active_tab == 'email_settings' ) {
+                  
+                  settings_fields( 'class_ant_email_settings' );
+                  do_settings_sections( 'class_ant_email_settings' ); 
+
+              } else if( $active_tab == 'paypal_settings' ) {
+                  
+                  settings_fields( 'class_ant_paypal_settings' );
+                  do_settings_sections( 'class_ant_paypal_settings' ); 
+
+              }
+            ?> 
+
+            <?php submit_button(); ?>  
+        </form> 
+
+    </div> 
+<?php }
+?>
