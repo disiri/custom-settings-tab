@@ -1,0 +1,210 @@
+<?php
+
+/* Add Menus
+-----------------------------------------------------------------*/
+
+add_action('admin_init', 'class_ant_settings_init');
+
+function class_ant_settings_init() { 
+
+/* Facebook Options Section */
+add_settings_section( 'class_ant_fb', 'Facebook Login', 'class_ant_fb_settings_callback', 'class_ant_fb_settings' );
+
+add_settings_field( 'fb_app_id', 'App ID', 'fb_app_id_callback', 'class_ant_fb_settings', 'class_ant_fb' );
+add_settings_field( 'fb_app_secret', 'App Secret', 'fb_app_secret_callback', 'class_ant_fb_settings', 'class_ant_fb' );
+add_settings_field( 'fb_site_url', 'SITE URL', 'fb_site_url_callback', 'class_ant_fb_settings', 'class_ant_fb' );
+
+/* Google Options Section */
+add_settings_section( 'class_ant_google', 'Google Login', 'class_ant_google_settings_callback', 'class_ant_google_settings' );
+
+add_settings_field( 'google_client_id', 'Client ID', 'google_client_id_callback', 'class_ant_google_settings', 'class_ant_google' );
+add_settings_field( 'google_email_address', 'Email Address', 'google_email_address_callback', 'class_ant_google_settings', 'class_ant_google' );
+add_settings_field( 'google_client_secret', 'Client secret', 'google_client_secret_callback', 'class_ant_google_settings', 'class_ant_google' );
+add_settings_field( 'google_redirect_uri', 'Redirect URIs', 'google_redirect_uri_callback', 'class_ant_google_settings', 'class_ant_google' );
+add_settings_field( 'google_api_key', 'API KEY', 'google_api_key_callback', 'class_ant_google_settings', 'class_ant_google' );
+
+/* Registration Email Options Section */
+add_settings_section( 'class_ant_email', '', 'class_ant_email_settings_callback', 'class_ant_email_settings' );
+
+add_settings_field( 'welcome_email', 'Welcome Email Message ', 'class_ant_welcome_callback', 'class_ant_email_settings', 'class_ant_email' );
+
+add_settings_field( 'forgot_email', 'Forgot Email Message ', 'class_ant_forgot_callback', 'class_ant_email_settings', 
+    'class_ant_email' );
+
+add_settings_field( 'unreg_confirm_ad_email', 'Confirm Posting of Ad(Unregistered) ', 'class_ant_unreg_confirm_ad_callback', 'class_ant_email_settings', 'class_ant_email');
+add_settings_field( 'unreg_success_ad_email', 'Success Posting of Ad(Unregistered) ', 'class_ant_success_ad_callback', 'class_ant_email_settings', 'class_ant_email');
+add_settings_field( 'unreg_edit_ad_email', 'Edit Posted Ad(Unregistered)', 'class_ant_unreg_edit_ad_callback', 'class_ant_email_settings', 'class_ant_email');
+
+
+/* Paypal Options Section */
+add_settings_section( 'class_ant_paypal', 'Paypal Credentials', 'class_ant_paypal_settings_callback', 'class_ant_paypal_settings' );
+
+add_settings_field( 'paypal_username', 'Username', 'class_ant_username_callback', 'class_ant_paypal_settings', 'class_ant_paypal' );
+add_settings_field( 'paypal_password', 'Password', 'class_ant_pass_callback', 'class_ant_paypal_settings', 'class_ant_paypal' );
+add_settings_field( 'paypal_signature', 'Signature', 'class_ant_signature_callback', 'class_ant_paypal_settings', 'class_ant_paypal' );
+add_settings_field( 'paypal_email', 'Email Address', 'class_ant_paypal_email_callback', 'class_ant_paypal_settings', 'class_ant_paypal' );
+
+/* Register Settings */
+register_setting('class_ant_email_settings', 'class_ant_email_settings');
+register_setting('class_ant_email_settings', 'welcome_email');
+register_setting('class_ant_email_settings', 'forgot_email');
+register_setting('class_ant_email_settings', 'unreg_confirm_ad_email');
+register_setting('class_ant_email_settings', 'unreg_success_ad_email');
+register_setting('class_ant_email_settings', 'unreg_edit_ad_email');
+
+
+register_setting('class_ant_paypal_settings', 'class_ant_paypal_settings');
+register_setting('class_ant_paypal_settings', 'paypal_username');
+register_setting('class_ant_paypal_settings', 'paypal_password');
+register_setting('class_ant_paypal_settings', 'paypal_signature');
+register_setting('class_ant_paypal_settings', 'paypal_email');
+
+register_setting('class_ant_fb_settings', 'class_ant_fb_settings');
+register_setting('class_ant_fb_settings', 'fb_app_id');
+register_setting('class_ant_fb_settings', 'fb_app_secret');
+register_setting('class_ant_fb_settings', 'fb_site_url');
+
+register_setting('class_ant_google_settings', 'class_ant_google_settings');
+register_setting('class_ant_google_settings', 'google_client_id');
+register_setting('class_ant_google_settings', 'google_email_address');
+register_setting('class_ant_google_settings', 'google_client_secret');
+register_setting('class_ant_google_settings', 'google_redirect_uri');
+register_setting('class_ant_google_settings', 'google_api_key');
+
+}
+
+
+
+/* Call Backs
+-----------------------------------------------------------------*/
+
+function class_ant_google_settings_callback() { 
+
+}
+
+function google_client_id_callback() { 
+?>
+    <input type = "text" name = "google_client_id" id = "google_client_id" value="<?php echo get_option('google_client_id'); ?>" /> 
+<?php
+}
+function google_email_address_callback() { 
+?>
+    <input type = "email" name = "google_email_address" id = "google_email_address" value="<?php echo get_option('google_email_address'); ?>"/> 
+<?php
+}
+function google_client_secret_callback() { 
+?>
+    <input type = "text" name = "google_client_secret" id = "google_client_secret" value="<?php echo get_option('google_client_secret'); ?>" /> 
+<?php
+}
+function google_redirect_uri_callback() { 
+?>
+    <input type = "text" name = "google_redirect_uri" id = "google_redirect_uri" value="<?php echo get_option('google_redirect_uri'); ?>"/> 
+<?php
+}
+function google_api_key_callback() { 
+?>
+    <input type = "text" name = "google_api_key" id = "google_api_key" value="<?php echo get_option('google_api_key'); ?>"/> 
+<?php
+}
+
+function class_ant_fb_settings_callback() {
+	
+}
+function fb_app_id_callback() { 
+?>
+    <input type = "text" name = "fb_app_id" id = "fb_app_id" size = "20px" value="<?php echo get_option('fb_app_id'); ?>"/> 
+<?php
+}
+function fb_app_secret_callback() { 
+?>
+    <input type = "text" name = "fb_app_secret" id = "fb_app_secret" size = "20px" value="<?php echo get_option('fb_app_secret'); ?>"/> 
+<?php
+}
+function fb_site_url_callback() { 
+?>
+    <input type = "text" name = "fb_site_url" id = "fb_site_url" size = "20px" value="<?php echo get_option('fb_site_url'); ?>"/> 
+<?php
+}
+
+function class_ant_email_settings_callback() {
+ 
+}
+function class_ant_unreg_confirm_ad_callback() { 
+
+	$settings = array( 'media_buttons' => false,'quicktags' => false,'tinymce' => true, 'textarea_rows' => 10, );
+	$content = get_option('unreg_confirm_ad_email');                    
+	$editor_id = 'unreg_confirm_ad_email';
+	wp_editor( $content, $editor_id, $settings ); 
+
+}
+function class_ant_success_ad_callback() { 
+
+	$settings = array( 'media_buttons' => false,'quicktags' => false,'tinymce' => true, 'textarea_rows' => 10, );
+	$content = get_option('unreg_success_ad_email');                    
+	$editor_id = 'unreg_success_ad_email';
+	wp_editor( $content, $editor_id, $settings ); 
+
+}
+function class_ant_unreg_edit_ad_callback() { 
+
+	$settings = array( 'media_buttons' => false,'quicktags' => false,'tinymce' => true, 'textarea_rows' => 10, );
+	$content = get_option('unreg_edit_ad_email');                    
+	$editor_id = 'unreg_edit_ad_email';
+	wp_editor( $content, $editor_id, $settings ); 
+
+}
+function class_ant_welcome_callback() { 
+
+	$settings = array( 'media_buttons' => false,'quicktags' => false,'tinymce' => true, 'textarea_rows' => 10, );
+	$content = get_option('welcome_email');                     
+	$editor_id = 'welcome_email';
+	wp_editor( $content, $editor_id, $settings ); 
+
+}
+function class_ant_forgot_callback() { 
+
+	$settings = array( 'media_buttons' => false,'quicktags' => false,'tinymce' => true, 'textarea_rows' => 10, );
+	$content = get_option('forgot_email');                    
+	$editor_id = 'forgot_email';
+	wp_editor( $content, $editor_id, $settings ); 
+
+}
+
+function class_ant_paypal_settings_callback() { 
+
+}
+
+
+function class_ant_username_callback() { 
+?>
+    <input type = "text" name = "paypal_username" id = "paypal_username" value="<?php echo get_option('paypal_username'); ?>" />
+<?php
+}
+
+
+function class_ant_pass_callback() { 
+?>
+    <input type = "password" name = "paypal_password" id = "paypal_password" value="<?php echo get_option('paypal_password'); ?>" />
+
+<?php
+}
+
+function class_ant_signature_callback() { 
+?>
+    <input type = "text" name = "paypal_signature" id = "paypal_signature" size = "20px" value="<?php echo get_option('paypal_signature'); ?>" />
+
+<?php
+}
+
+function class_ant_paypal_email_callback() { 
+?>
+    <input type = "email" name = "paypal_email" id = "paypal_email" size = "20px" value="<?php echo get_option('paypal_email'); ?>" />
+    
+<?php
+}
+
+
+
+
+
