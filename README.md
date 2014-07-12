@@ -9,6 +9,3 @@ Installation:
 2. Copy files to your wordpress plugin folder
 3. Activate the plugins in your backend site.
 Note: *Folder name cannot consist of spaces.
-
-
-
