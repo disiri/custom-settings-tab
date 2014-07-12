@@ -1,4 +1,4 @@
-custom-settings-tab
-===================
+*** Create settings into a custom post type ***
 
-Create a custom settings and display into tab
+Adds a settings section in your custom post type
+
